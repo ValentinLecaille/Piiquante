@@ -10,8 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "browser-sync": "^2.27.11",
+    "dotenv": "^16.0.3",
     "express": "^3.4.4",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.2",
-    "mongoose-unique-validator": "^3.1.0"
+    "mongoose-unique-validator": "^3.1.0",
+    "multer": "^1.4.5-lts.1"
   }
 }
