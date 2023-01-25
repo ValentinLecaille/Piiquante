@@ -1,7 +1,7 @@
 const express = require("express");
 const { getSauces, createSauce, getOneSauce, deleteOneSauce, modifySauce, likeSauce } = require('../controllers/sauces');
 const sauceRouter = express()
-const { upload } = require('../middleware/multer'); 
+const { upload } = require('../middleware/multer');
 const { validUser } = require('../middleware/validUser');
 
 sauceRouter.get("/", validUser, getSauces);

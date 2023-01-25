@@ -7,8 +7,7 @@ const path = require('path');
 // imports
 
 const { sauceRouter } = require('./routers/sauceRouter');
-const { newUser } = require('./controllers/user'); 
-const { loginUser } = require('./controllers/user');
+const { authRouter } = require('./routers/authRouter');
 
 // middlewares
 
@@ -21,12 +20,8 @@ app.use((req, res, next) => {
   });  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true  }));
-app.use("/api/sauces", sauceRouter)
-
-// routes
-
-app.post("/api/auth/signup", newUser);
-app.post("/api/auth/login", loginUser); 
+app.use("/api/sauces", sauceRouter);
+app.use("/api/auth", authRouter);
 
 // static
 
