@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { sauceRouter } = require('../routers/sauceRouter');
 const unlink = require("fs").promises.unlink;
 
 // model Schema sauce

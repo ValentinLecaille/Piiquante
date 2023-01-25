@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
+const env = require('./.env');
 const uniqueValidator = require("mongoose-unique-validator");
 
 // database
-
-mongoose.connect('mongodb+srv://ValentinL:VAL1997@cluster0.6rz0bbw.mongodb.net/test',
+mongoose.connect(env.mdp,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MonnodegoDB échouée !'));
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 mongoose.set('strictQuery', true);
 
