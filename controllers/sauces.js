@@ -21,6 +21,7 @@ const Sauce = mongoose.model('Sauce', sauceSchema);
 
 // récupération des sauces après authentification (authentification fait dans la route)
 function getSauces(req, res) { 
+    // on cherche la sauce avec le .find
     Sauce.find({})
         .then(sauces => res.send(sauces))
         .catch(error => res.status(500).send( error ));
@@ -28,11 +29,14 @@ function getSauces(req, res) {
 
 // accès à la page d'une sauce
 
+// on cherche la sauce grâce à son id
 function getSaucebyId(req, res) {
     const { id } = req.params;
+    // on retourne la sauce trouvée
     return Sauce.findById(id)
 }
 
+// on récupère la sauce trouvée grâce à l'id, envoie de message de réponse ou d'erreur en cas de problème
 function getOneSauce(req, res) {
     getSaucebyId(req, res)
     .then((sauce) => responseForClient(sauce, res))
@@ -43,7 +47,9 @@ function getOneSauce(req, res) {
 
 function createSauce(req, res) {
     const {body, file} = req;
+    // image
     const {fileName} = file;
+    // on passe l'element sauce de string à objet
     const sauce = JSON.parse(body.sauce);
     const {name, manufacturer, description, mainPepper, heat, userId} = sauce;
 
@@ -53,7 +59,7 @@ function createSauce(req, res) {
         manufacturer: manufacturer,
         description: description, 
         mainPepper: mainPepper,
-        imageUrl: getImgUrl(req, fileName),  
+        imageUrl: getImgUrl(req, fileName),  // on appelle la fonction getImgUrl
         heat: heat,
         likes: 0,
         dislikes: 0,
@@ -61,14 +67,17 @@ function createSauce(req, res) {
         usersDisliked: [],
     })
     item
+    //enregistrement de la sauce
         .save()
-        .then((msg) => { 
-            res.status(201).send({ msg });
+        // on envoie une réponse
+        .then((message) => { 
+            res.status(201).send({ message });
         })
         .catch(console.error);
 };
 
 function getImgUrl(req, fileName) {
+    // on créé l'url de notre image
     return req.protocol + "://" + req.get("host") + "/images/" + fileName;
 };
 
@@ -122,7 +131,7 @@ function buildPayload(isNewImage, req) {
 
 function responseForClient(sauce, res) {
     if (sauce == null) {
-        return res.status(404).send({ message: "not found in database"})
+        return res.status(404).send({ message: "not found"})
     }
         return Promise.resolve(res.status(200).send(sauce))
             .then(() => sauce)
@@ -167,7 +176,7 @@ function incrementVote(sauce, userId, like) {
     return sauce;
 }
 
-function resetVote(sauce, userId, res) {
+function resetVote(sauce, userId) {
     const {usersDisliked, usersLiked} = sauce
 
     // on vérifie si l'utilisateur a voté dans les deux tableaux

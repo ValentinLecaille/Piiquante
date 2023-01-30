@@ -1,5 +1,6 @@
 const multer = require('multer');
 
+// middleware multer pour ajout d'une image (création d'une sauce)
 const storage = multer.diskStorage({ 
     destination: 'images/', 
     filename: function (req, file, cb){
@@ -7,6 +8,7 @@ const storage = multer.diskStorage({
 }});
 
 function fncFileName(req, file) {
+    // on défini le nom que portera l'image dans la base de données
     const fileName =  `${file.originalname}`;
     file.fileName = fileName;
     return fileName;

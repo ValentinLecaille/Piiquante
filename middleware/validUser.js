@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// MIDDLEWARE : vérification du token et authentification  de l'utilisateur
+// MIDDLEWARE : vérification du token et authentification  de l'utilisateur // pour chaque action importante
 
 function validUser(req, res, next) {
     // on récupère le header authorization lors de la requête GET

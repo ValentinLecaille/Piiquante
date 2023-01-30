@@ -1,16 +1,15 @@
-const dotenv = require('dotenv').config();
+//express
 const express = require('express');
 const app = express();
+
 const bodyParser = require('body-parser');
 const path = require('path');
 
-// imports
-
+// importation routers
 const { sauceRouter } = require('./routers/sauceRouter');
 const { authRouter } = require('./routers/authRouter');
 
 // middlewares
-
 app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,10 +22,8 @@ app.use(bodyParser.urlencoded({ extended : true  }));
 app.use("/api/sauces", sauceRouter);
 app.use("/api/auth", authRouter);
 
-// static
-
+// static (ajout des images en local)
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // export
-
 module.exports = app;
